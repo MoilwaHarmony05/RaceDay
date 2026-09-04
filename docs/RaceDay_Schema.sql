@@ -424,6 +424,7 @@ Adds sample participant registrations
 ========================================================
 */
 
+
 INSERT INTO Enrolment
     (ParticipantId, CategoryId, Status, BibNumber,
      EmergencyContact, MedicalNotes)
