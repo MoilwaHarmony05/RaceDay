@@ -84,6 +84,7 @@ Stores race categories belonging to an event
 ========================================================
 */
 
+
 CREATE TABLE Category
 (
     CategoryId INT IDENTITY(1,1) PRIMARY KEY,
@@ -118,12 +119,14 @@ CREATE TABLE Category
 );
 GO
 
+
 /*
 ========================================================
 4. ENROLMENT TABLE
 Stores participant registrations for race categories
 ========================================================
 */
+
 
 CREATE TABLE Enrolment
 (
