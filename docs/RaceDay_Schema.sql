@@ -510,6 +510,7 @@ Adds sample race results
 ========================================================
 */
 
+
 INSERT INTO Result
     (EnrolmentId, FinishTime, PositionOverall,
      PositionCategory, Status, CapturedBy, Notes)
