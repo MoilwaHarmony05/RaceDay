@@ -1,9 +1,9 @@
-/*
-========================================================
-RaceDay Database
-Section C - SQL Database Schema
-========================================================
-*/
+-- ========================================================
+-- RACEDAY DATABASE SCHEMATIC (PART 1)
+-- Target DBMS: Microsoft SQL Server (SSMS-ready)
+-- This script initializes the database container, builds tables,
+-- establishes relationships, and populates initial seed data.
+-- ========================================================
 
 CREATE DATABASE RaceDayDB;
 GO
