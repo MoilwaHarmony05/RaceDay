@@ -10,13 +10,9 @@ GO
 
 USE RaceDayDB;
 GO
-
-/*
-========================================================
-1. USER TABLE
-Stores organisers and participants
-========================================================
-*/
+-- User table houses account records for Organisers and Participants [5, 6].
+-- Role column is strictly validated via CK_User_Role check constraint [7, 8].
+-- Email addresses are strictly enforced as UNIQUE to prevent duplicate logins [9, 10].
 
 CREATE TABLE [User]
 (
