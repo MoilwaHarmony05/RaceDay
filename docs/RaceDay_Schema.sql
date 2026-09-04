@@ -41,12 +41,9 @@ CREATE TABLE [User]
 );
 GO
 
-/*
-========================================================
-2. EVENT TABLE
-Stores RaceDay events created by organisers
-========================================================
-*/
+-- Event table models core race/walk/cycle events created by Organisers [5, 6].
+-- Foreign key FK_Event_Organiser maps back to the User table [11-13].
+-- RegistrationDeadline must precede or match EventDate via validation check [9, 14].
 
 CREATE TABLE Event
 (
