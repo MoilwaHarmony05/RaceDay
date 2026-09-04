@@ -165,12 +165,10 @@ CREATE TABLE Enrolment
 );
 GO
 
-/*
-========================================================
-5. RESULT TABLE
-Stores the result of a participant's race
-========================================================
-*/
+-- Result holds finish times and positions captured by an Organiser [5, 6].
+-- UQ_Result_Enrolment enforces a 1:0..1 relationship with the Enrolment table [12, 18].
+-- Status values are restricted to 'Finished', 'DNF', or 'DNS' via CK_Result_Status [19].
+
 
 CREATE TABLE Result
 (
