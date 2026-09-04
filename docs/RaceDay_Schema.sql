@@ -338,6 +338,7 @@ Adds race categories for each event
 ========================================================
 */
 
+
 INSERT INTO Category
     (EventId, Name, DistanceKm, MaxParticipants, EntryFee, StartTime)
 VALUES
