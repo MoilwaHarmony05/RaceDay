@@ -271,6 +271,7 @@ Adds three sample RaceDay events
 ========================================================
 */
 
+
 INSERT INTO Event
     (OrganiserId, Name, Description, Location,
      EventDate, RegistrationDeadline, Status)
