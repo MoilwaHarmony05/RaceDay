@@ -247,6 +247,7 @@ Adds sample organisers and participants
 ========================================================
 */
 
+
 INSERT INTO [User]
     (Email, PasswordHash, FirstName, LastName, Role, Phone, DateOfBirth)
 VALUES
