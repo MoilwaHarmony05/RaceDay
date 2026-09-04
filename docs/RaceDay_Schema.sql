@@ -212,12 +212,8 @@ CREATE TABLE Result
 );
 GO
 
-/*
-========================================================
-6. EVENT IMAGE TABLE
-Stores images associated with RaceDay events
-========================================================
-*/
+-- EventImage handles route maps and promotional image details [5, 6].
+-- BlobPath stores the cloud target reference in preparation for Part 3 Azure Blob Storage [5, 9].
 
 CREATE TABLE EventImage
 (
