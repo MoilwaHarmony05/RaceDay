@@ -66,6 +66,9 @@ The system uses the following main entities:
 A GitHub Actions workflow is included to validate that the `/docs` folder contains the required Part 1 files.
 
 ---
+## YouTube video presentation link
+https://youtu.be/wEaA0o9FUl4 .
+
 
 ## Future Parts
 
