@@ -85,6 +85,7 @@ Stores race categories belonging to an event
 */
 
 
+
 CREATE TABLE Category
 (
     CategoryId INT IDENTITY(1,1) PRIMARY KEY,
