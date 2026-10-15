@@ -12,7 +12,7 @@ This repository currently contains **Part 1 – System Planning and Database**.
 
 ---
 
-## Roles
+## Roles 
 
 ### Organiser
 - Create, edit, and delete events
