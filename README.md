@@ -70,7 +70,38 @@ A GitHub Actions workflow is included to validate that the `/docs` folder contai
 https://youtu.be/wEaA0o9FUl4 .
 
 
+# RaceDay – Event Management System (Part2)
+
+RaceDay is a web-based event management API for South African road running, walking, and cycling.
+
+## Roles
+
+### Organiser
+- Register and log in
+- Create, edit, and delete events
+- Manage categories
+- View their own events
+
+### Participant
+- Register and log in
+- View profile
+- Browse events and categories
+
+## How to run
+
+1. Install Visual Studio 2022 and the .NET 8 SDK.
+2. Install SQL Server LocalDB.
+3. Open `RaceDay.Api/RaceDay.Api.csproj`.
+4. Press the green Run button.
+5. Swagger opens automatically.
+6. The API uses LocalDB database `RaceDayDB`.
+
+## Unit tests
+
+```bash
+dotnet test RaceDay.Api.Tests
+
+
 ## Future Parts
 
-- **Part 2**: Build the RESTful API in C#
 - **Part 3**: Build the MVC web application, integrate Azure Blob Storage, and containerise the solution with Docker
