@@ -85,7 +85,58 @@ public class EventsControllerTests
 
         Assert.IsType<ForbidResult>(result);
     }
+    [Fact]
+    public async Task Update_ChangesEvent_WhenOwner()
+    {
+        await using var db = CreateDb();
+        db.Events.Add(new Event
+        {
+            OrganiserId = 1,
+            Name = "Old Name",
+            Location = "Soweto",
+            EventDate = DateTime.UtcNow,
+            RegistrationDeadline = DateTime.UtcNow,
+            EventType = "Run",
+            Status = "Draft"
+        });
+        await db.SaveChangesAsync();
 
+        var controller = new EventsController(db);
+        SignInAsOrganiser(controller, 1);
+
+        var request = new EventsController.UpdateEventRequest(
+            "New Name", null, null, null, null, null, null, "Published");
+
+        var result = await controller.Update(1, request);
+
+        Assert.IsType<OkObjectResult>(result);
+        Assert.Equal("New Name", (await db.Events.FindAsync(1))!.Name);
+        Assert.Equal("Published", (await db.Events.FindAsync(1))!.Status);
+    }
+
+    [Fact]
+    public async Task Delete_RemovesEvent_WhenOwner()
+    {
+        await using var db = CreateDb();
+        db.Events.Add(new Event
+        {
+            OrganiserId = 1,
+            Name = "Soweto Marathon",
+            Location = "Soweto",
+            EventDate = DateTime.UtcNow,
+            RegistrationDeadline = DateTime.UtcNow,
+            EventType = "Run"
+        });
+        await db.SaveChangesAsync();
+
+        var controller = new EventsController(db);
+        SignInAsOrganiser(controller, 1);
+
+        var result = await controller.Delete(1);
+
+        Assert.IsType<NoContentResult>(result);
+        Assert.Equal(0, await db.Events.CountAsync());
+    }
     private sealed class TestSession : ISession
     {
         private readonly Dictionary<string, byte[]> _store = new();
