@@ -100,7 +100,10 @@ RaceDay is a web-based event management API for South African road running, walk
 
 ```bash
 dotnet test RaceDay.Api.Tests
-<img width="1193" height="917" alt="image" src="https://github.com/user-attachments/assets/8d8b155d-f2d4-4024-9b32-6274d9a148fd" />
+
+## Actions workflow
+<img width="1193" height="917" alt="image" src="https://github.com/user-attachments/assets/616c00a1-2979-40db-928b-ce74b8cc0252" />
+
 
 
 
