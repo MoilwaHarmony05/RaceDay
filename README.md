@@ -12,7 +12,7 @@ This repository currently contains **Part 1 – System Planning and Database**.
 
 ---
 
-## Roles
+## Roles 
 
 ### Organiser
 - Create, edit, and delete events
@@ -70,7 +70,61 @@ A GitHub Actions workflow is included to validate that the `/docs` folder contai
 https://youtu.be/wEaA0o9FUl4 .
 
 
+# RaceDay – Event Management System (Part2) 
+
+## YouTube video presentation link
+
+https://youtu.be/OjQoUiM-TLs
+
+RaceDay is a web-based event management API for South African road running, walking, and cycling.
+
+## Roles
+
+### Organiser
+- Register and log in
+- Create, edit, and delete events
+- Manage categories
+- View their own events
+
+### Participant
+- Register and log in
+- View profile
+- Browse events and categories
+
+## How to run the API
+
+### Option 1: Visual Studio (recommended)
+
+1. Install **Visual Studio 2022** and the **.NET 8 SDK**.
+2. Install **SQL Server LocalDB**.
+3. Open the file `RaceDay.Api/RaceDay.Api.csproj`.
+4. In the toolbar, make sure **https** or **http** is selected next to the green Run button.
+5. Click the green **Run** button.
+6. The browser opens automatically on Swagger (`/swagger`).
+7. The API uses the LocalDB database `RaceDayDB`.
+
+### Option 2: PowerShell
+
+1. Open **Windows PowerShell**.
+2. Go to the API folder:
+
+```powershell
+cd C:\Users\Keaha\OneDrive\Desktop\RaceDay\RaceDay.Api
+
+## How to run the unit tests
+
+### PowerShell
+
+```powershell
+cd C:\Users\Keaha\OneDrive\Desktop\RaceDay
+dotnet test RaceDay.Api.Tests
+
+Visual Studio
+
+Open the project.
+Go to Test → Run All Tests.
+All tests under RaceDay.Api.Tests
+
 ## Future Parts
 
-- **Part 2**: Build the RESTful API in C#
 - **Part 3**: Build the MVC web application, integrate Azure Blob Storage, and containerise the solution with Docker
