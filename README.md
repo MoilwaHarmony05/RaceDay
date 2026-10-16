@@ -107,14 +107,19 @@ RaceDay is a web-based event management API for South African road running, walk
 ```powershell
 cd C:\Users\Keaha\OneDrive\Desktop\RaceDay\RaceDay.Api
 
-## Unit tests
+## How to run the unit tests
 
-```bash
+### PowerShell
+
+```powershell
+cd C:\Users\Keaha\OneDrive\Desktop\RaceDay
 dotnet test RaceDay.Api.Tests
 
-## Actions workflow
-<img width="1193" height="917" alt="image" src="https://github.com/user-attachments/assets/616c00a1-2979-40db-928b-ce74b8cc0252" />
+Visual Studio
 
+Open the project.
+Go to Test → Run All Tests.
+All tests under RaceDay.Api.Tests
 
 
 
