@@ -70,7 +70,11 @@ A GitHub Actions workflow is included to validate that the `/docs` folder contai
 https://youtu.be/wEaA0o9FUl4 .
 
 
-# RaceDay – Event Management System (Part2)
+# RaceDay – Event Management System (Part2) 
+
+## YouTube video presentation link
+
+https://youtu.be/OjQoUiM-TLs
 
 RaceDay is a web-based event management API for South African road running, walking, and cycling.
 
@@ -120,11 +124,7 @@ Visual Studio
 Open the project.
 Go to Test → Run All Tests.
 All tests under RaceDay.Api.Tests
----
-## YouTube video presentation link
 
-https://youtu.be/OjQoUiM-TLs
----
 ## Future Parts
 
 - **Part 3**: Build the MVC web application, integrate Azure Blob Storage, and containerise the solution with Docker
