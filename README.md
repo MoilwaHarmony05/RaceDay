@@ -120,11 +120,10 @@ Visual Studio
 Open the project.
 Go to Test → Run All Tests.
 All tests under RaceDay.Api.Tests
-
-
-## YouTube Video Link
+---
+### YouTube Video Link
 https://youtu.be/OjQoUiM-TLs
-
+---
 ## Future Parts
 
 - **Part 3**: Build the MVC web application, integrate Azure Blob Storage, and containerise the solution with Docker
