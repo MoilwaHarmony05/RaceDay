@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<h1>Create Event</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label>Name</label>
+        <input name="name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label>Location</label>
+        <input name="location" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Event date</label>
+        <input name="eventDate" type="datetime-local" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Registration deadline</label>
+        <input name="registrationDeadline" type="datetime-local" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Distance (km)</label>
+        <input name="distance" type="number" step="0.1" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Event type</label>
+        <select name="eventType" class="form-control">
+            <option>Run</option>
+            <option>Walk</option>
+            <option>Cycle</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

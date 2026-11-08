@@ -15,18 +15,21 @@
                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Events" asp-action="Index">Events</a>
+                <a class="nav-link text-dark" asp-controller="Organiser" asp-action="Dashboard">My Events</a>
             </li>
             @if (Context.Session.GetString("Role") == "Organiser")
             {
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">My Events</a>
+                    <a class="nav-link text-dark" asp-controller="Organiser" asp-action="Dashboard">My Events</a>
                 </li>
             }
             @if (Context.Session.GetString("Role") == "Participant")
             {
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">My Enrolments</a>
+                    <a class="nav-link text-dark" asp-controller="Participant" asp-action="Events">Browse Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="Participant" asp-action="MyEnrolments">My Enrolments</a>
                 </li>
             }
         </ul>

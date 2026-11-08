@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<h1>Event Details</h1>
+<pre>@ViewBag.Json</pre>
+
+@if (Context.Session.GetString("Role") == "Participant")
+{
+    <form asp-action="Enrol" method="post">
+        <div class="mb-3">
+            <label>Category ID</label>
+            <input name="categoryId" type="number" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Enrol</button>
+    </form>
+}
+else
+{
+    <p><a asp-controller="Account" asp-action="Login">Login as a participant</a> to enrol.</p>
+}

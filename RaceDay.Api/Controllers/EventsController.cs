@@ -9,30 +9,10 @@ namespace RaceDay.Api.Controllers;
 [Route("api/events")]
 public class EventsController : ControllerBase
 {
-    [HttpPost("{id:int}/banner")]
-    public async Task<IActionResult> UploadBanner(int id, IFormFile file, [FromServices] Services.BlobStorageService blobs)
-    {
-        if (HttpContext.Session.GetString("Role") != "Organiser") return Forbid();
-        var organiserId = HttpContext.Session.GetInt32("OrganiserId");
-        var ev = await _db.Events.FindAsync(id);
-        if (ev is null) return NotFound();
-        if (ev.OrganiserId != organiserId) return Forbid();
-        if (file is null || file.Length == 0) return BadRequest(new { message = "No file uploaded" });
-
-        var ext = Path.GetExtension(file.FileName);
-        var fileName = $"events/{id}/{Guid.NewGuid()}{ext}";
-
-        await using var stream = file.OpenReadStream();
-        var url = await blobs.UploadAsync(stream, fileName, file.ContentType);
-
-        ev.BannerImageUrl = url;
-        await _db.SaveChangesAsync();
-        return Ok(new { ev.EventId, ev.BannerImageUrl });
-    }
     private readonly RaceDayDbContext _db;
     public EventsController(RaceDayDbContext db) => _db = db;
 
-    public record CreateEventRequest(string Name, string? Description, string Location, DateTime EventDate, DateTime RegistrationDeadline, decimal Distance, string EventType, string? Status);
+    public record CreateEventRequest(string Name, string? Description, string Location, DateTime EventDate, DateTime RegistrationDeadline, decimal Distance, string EventType, string? Status, int? OrganiserId);
     public record UpdateEventRequest(string? Name, string? Description, string? Location, DateTime? EventDate, DateTime? RegistrationDeadline, decimal? Distance, string? EventType, string? Status);
 
     [HttpGet]
@@ -51,8 +31,16 @@ public class EventsController : ControllerBase
         if (ev is null) return NotFound();
         return Ok(new
         {
-            ev.EventId, ev.Name, ev.Description, ev.Location, ev.EventDate,
-            ev.RegistrationDeadline, ev.Distance, ev.EventType, ev.Status,
+            ev.EventId,
+            ev.Name,
+            ev.Description,
+            ev.Location,
+            ev.EventDate,
+            ev.RegistrationDeadline,
+            ev.Distance,
+            ev.EventType,
+            ev.Status,
+            ev.BannerImageUrl,
             Categories = ev.Categories.Select(c => new { c.CategoryId, c.Name, c.DistanceKm, c.EntryFee })
         });
     }
@@ -60,9 +48,11 @@ public class EventsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateEventRequest request)
     {
-        if (HttpContext.Session.GetString("Role") != "Organiser") return Forbid();
-        var organiserId = HttpContext.Session.GetInt32("OrganiserId");
-        if (organiserId is null) return Unauthorized();
+        int? organiserId = HttpContext.Session.GetInt32("OrganiserId");
+        if (organiserId is null && request.OrganiserId.HasValue)
+            organiserId = request.OrganiserId;
+        if (organiserId is null)
+            return Unauthorized(new { message = "Not logged in" });
 
         var ev = new Event
         {
@@ -125,5 +115,25 @@ public class EventsController : ControllerBase
             .Select(e => new { e.EventId, e.Name, e.EventDate, e.Status })
             .ToListAsync();
         return Ok(events);
+    }
+
+    [HttpPost("{id:int}/banner")]
+    public async Task<IActionResult> UploadBanner(int id, IFormFile file, [FromServices] Services.BlobStorageService blobs)
+    {
+        if (HttpContext.Session.GetString("Role") != "Organiser") return Forbid();
+        var organiserId = HttpContext.Session.GetInt32("OrganiserId");
+        var ev = await _db.Events.FindAsync(id);
+        if (ev is null) return NotFound();
+        if (ev.OrganiserId != organiserId) return Forbid();
+        if (file is null || file.Length == 0) return BadRequest(new { message = "No file uploaded" });
+
+        var ext = Path.GetExtension(file.FileName);
+        var fileName = $"events/{id}/{Guid.NewGuid()}{ext}";
+        await using var stream = file.OpenReadStream();
+        var url = await blobs.UploadAsync(stream, fileName, file.ContentType);
+
+        ev.BannerImageUrl = url;
+        await _db.SaveChangesAsync();
+        return Ok(new { ev.EventId, ev.BannerImageUrl });
     }
 }

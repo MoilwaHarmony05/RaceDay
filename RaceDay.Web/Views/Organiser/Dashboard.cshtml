@@ -1,0 +1,49 @@
+@model List<RaceDay.Web.Models.EventViewModel>
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<h1>My Events</h1>
+<a class="btn btn-primary mb-3" asp-action="Create">Create Event</a>
+
+@if (Model.Count == 0)
+{
+    <p>You have not created any events yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.Name</td>
+                    <td>@e.EventDate.ToString("yyyy-MM-dd")</td>
+                    <td>@e.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table> 
+    @if (Model.Count > 0)
+    {
+        <h3 class="mt-4">Upload Banner</h3>
+        <form asp-action="UploadBanner" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label>Event ID</label>
+                <input name="id" type="number" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label>Banner image</label>
+                <input name="file" type="file" class="form-control" accept="image/*" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    }
+}
