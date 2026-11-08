@@ -25,8 +25,14 @@ public class ParticipantController : Controller
         var client = _http.CreateClient("RaceDayApi");
         var response = await client.GetAsync($"api/events/{id}");
         if (!response.IsSuccessStatusCode) return NotFound();
+
         var json = await response.Content.ReadAsStringAsync();
         ViewBag.Json = json;
+
+        using var doc = System.Text.Json.JsonDocument.Parse(json);
+        if (doc.RootElement.TryGetProperty("bannerImageUrl", out var banner))
+            ViewBag.BannerImageUrl = banner.GetString();
+
         return View();
     }
 
