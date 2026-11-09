@@ -19,14 +19,8 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies API
-      run: dotnet restore RaceDay.Api/RaceDay.Api.csproj
+    - name: Restore dependencies
+      run: dotnet restore
 
-    - name: Build API
-      run: dotnet build RaceDay.Api/RaceDay.Api.csproj --no-restore
-
-    - name: Restore dependencies Web
-      run: dotnet restore RaceDay.Web/RaceDay.Web.csproj
-
-    - name: Build Web
-      run: dotnet build RaceDay.Web/RaceDay.Web.csproj --no-restore
+    - name: Build
+      run: dotnet build --no-restore
