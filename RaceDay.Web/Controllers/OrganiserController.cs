@@ -15,8 +15,19 @@ public class OrganiserController : Controller
             return RedirectToAction("Login", "Account");
 
         var client = _http.CreateClient("RaceDayApi");
-        var events = await client.GetFromJsonAsync<List<EventViewModel>>("api/events/organiser/me")
-                     ?? new List<EventViewModel>();
+        var organiserId = HttpContext.Session.GetInt32("OrganiserId");
+
+        // We pass the organiserId to the API so it knows who we are!
+        var response = await client.GetAsync($"api/events/organiser/me?organiserId={organiserId}");
+
+        // If the API crashes or returns an error, we catch it gracefully instead of showing a 500 page
+        if (!response.IsSuccessStatusCode)
+        {
+            TempData["Error"] = "Could not load events from the API. Please check if the API is running.";
+            return View(new List<EventViewModel>());
+        }
+
+        var events = await response.Content.ReadFromJsonAsync<List<EventViewModel>>() ?? new List<EventViewModel>();
         return View(events);
     }
 
@@ -25,38 +36,47 @@ public class OrganiserController : Controller
     {
         if (HttpContext.Session.GetString("Role") != "Organiser")
             return RedirectToAction("Login", "Account");
-        return View();
+        return View(new CreateEventDto());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(string name, string description, string location, DateTime eventDate, DateTime registrationDeadline, decimal distance, string eventType)
+    
+    public async Task<IActionResult> Create(CreateEventDto model)
     {
         if (HttpContext.Session.GetString("Role") != "Organiser")
             return RedirectToAction("Login", "Account");
 
+        // If the browser missed something (like a required field)
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
         var client = _http.CreateClient("RaceDayApi");
         var organiserId = HttpContext.Session.GetInt32("OrganiserId");
+
         var response = await client.PostAsJsonAsync("api/events", new
         {
-            name,
-            description,
-            location,
-            eventDate,
-            registrationDeadline,
-            distance,
-            eventType,
+            name = model.Name,
+            description = model.Description,
+            location = model.Location,
+            eventDate = model.EventDate,
+            registrationDeadline = model.RegistrationDeadline,
+            distance = model.Distance,
+            eventType = model.EventType,
             status = "Published",
             organiserId
         });
 
         if (!response.IsSuccessStatusCode)
         {
-            ViewBag.Error = "Could not create event. Make sure you are logged in on the API side too, or try again.";
-            return View();
+            ViewBag.Error = "Could not create event. Ensure the API is running and you are authenticated.";
+            return View(model);
         }
 
         return RedirectToAction("Dashboard");
     }
+
     [HttpPost]
     public async Task<IActionResult> UploadBanner(int id, IFormFile file)
     {
@@ -81,4 +101,16 @@ public class OrganiserController : Controller
 
         return RedirectToAction("Dashboard");
     }
+}
+
+// This class is the "bucket" that catches the form data perfectly
+public class CreateEventDto
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public string Location { get; set; } = string.Empty;
+    public DateTime EventDate { get; set; }
+    public DateTime RegistrationDeadline { get; set; }
+    public decimal Distance { get; set; }
+    public string EventType { get; set; } = string.Empty;
 }
