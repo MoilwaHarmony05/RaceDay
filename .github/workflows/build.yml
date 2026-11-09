@@ -1,25 +1,44 @@
-name: Build RaceDay Projects
+name: RaceDay CI
 
 on:
   push:
-    branches: [ "main", "master", "part-3" ]
+    branches: [ master, part-2, part-3 ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Build API
-      working-directory: ./RaceDay.Api
-      run: dotnet build
+      - name: List project files
+        run: find . -name "*.csproj" -print
 
-    - name: Build MVC
-      working-directory: ./RaceDay.Web
-      run: dotnet build
+      - name: Restore API
+        run: dotnet restore RaceDay.Api/RaceDay.Api.csproj
+
+      - name: Build API
+        run: dotnet build RaceDay.Api/RaceDay.Api.csproj -c Release --no-restore
+
+      - name: Restore Web
+        run: dotnet restore RaceDay.Web/RaceDay.Web.csproj
+
+      - name: Build Web
+        run: dotnet build RaceDay.Web/RaceDay.Web.csproj -c Release --no-restore
+
+      - name: Run tests
+        run: |
+          if [ -f RaceDay.Api.Tests/RaceDay.Api.Tests.csproj ]; then
+            dotnet restore RaceDay.Api.Tests/RaceDay.Api.Tests.csproj
+            dotnet test RaceDay.Api.Tests/RaceDay.Api.Tests.csproj -c Release --no-restore --verbosity normal
+          else
+            echo "No test project found, skipping"
+          fi
