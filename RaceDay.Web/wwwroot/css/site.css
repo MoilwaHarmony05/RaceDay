@@ -1,22 +1,73 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+/* RaceDay Energetic Theme */
+:root {
+    --raceday-primary: #ff4500; /* Energetic Orange/Red */
+    --raceday-dark: #1a1a1a; /* Deep sporting black */
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--raceday-dark) !important;
+    border-bottom: 4px solid var(--raceday-primary);
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .navbar-brand:hover, .nav-link:hover {
+        color: var(--raceday-primary) !important;
+    }
+
+/* Headers */
+h1, h2, h3 {
+    color: var(--raceday-dark);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Tables */
+.table thead {
+    background-color: var(--raceday-dark);
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 69, 0, 0.05);
+}
+
+/* Custom Buttons */
+.btn-primary {
+    background-color: var(--raceday-primary);
+    border-color: var(--raceday-primary);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+    .btn-primary:hover {
+        background-color: #e03e00;
+        border-color: #e03e00;
+    }
+
+/* Status Badges */
+.badge-confirmed {
+    background-color: #28a745 !important; /* Green */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.badge-pending {
+    background-color: #ffc107 !important; /* Amber */
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
