@@ -34,7 +34,7 @@ jobs:
       - name: Build Web
         run: dotnet build RaceDay.Web/RaceDay.Web.csproj -c Release --no-restore
 
-      - name: Run tests
+      - name: Run tests 
         run: |
           if [ -f RaceDay.Api.Tests/RaceDay.Api.Tests.csproj ]; then
             dotnet restore RaceDay.Api.Tests/RaceDay.Api.Tests.csproj
