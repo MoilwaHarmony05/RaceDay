@@ -1,0 +1,29 @@
+name: Build RaceDay Projects
+
+on:
+  push:
+    branches: [ "main", "master", "part-3" ]
+  pull_request:
+    branches: [ "main", "master", "part-3" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' 
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build API
+      run: dotnet build RaceDay.Api/RaceDay.Api.csproj --no-restore
+
+    - name: Build MVC
+      run: dotnet build RaceDay.Web/RaceDay.Web.csproj --no-restore
